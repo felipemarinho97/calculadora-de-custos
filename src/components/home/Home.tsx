@@ -4,12 +4,12 @@ import "./Home.css";
 import ProductsManager from "../tabs/products/ProductsManager";
 import RecipesManager from "../tabs/recipes/RecipesManager";
 import { ClickParam } from "antd/lib/menu";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Switch, Route, withRouter, RouteComponentProps } from "react-router-dom";
 import { IAppState } from "../../App";
 import { store } from "../../App";
 import { saveAs } from "file-saver";
 import { loadState } from "../../actions/persistor.action";
-import { BookFilled, ShoppingFilled, SaveFilled } from "@ant-design/icons";
+import { BookFilled, ShoppingFilled, SaveFilled, HomeFilled, FolderOpenFilled } from "@ant-design/icons";
 
 const { Header, Content, Footer } = Layout;
 
@@ -20,10 +20,10 @@ export function getProjectName(
   return `${prefix}-${now.toLocaleDateString()}-${now.toLocaleTimeString()}`;
 }
 
-class Home extends React.Component {
+class Home extends React.Component<RouteComponentProps> {
   private fileReader: FileReader;
 
-  constructor(props: Object) {
+  constructor(props: RouteComponentProps) {
     super(props);
 
     this.onMenuClick = this.onMenuClick.bind(this);
@@ -69,7 +69,9 @@ class Home extends React.Component {
   };
 
   private onMenuClick(param: ClickParam): void {
-    console.log(param);
+    if (param.key === "0") {
+      this.props.history.push('/')
+    }
     if (param.key === "4") {
       this.localSave();
     }
@@ -80,24 +82,24 @@ class Home extends React.Component {
       <Layout>
         <Header className="header">
           <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-            <Menu.Item onClick={this.onMenuClick} key="1">
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["0"]}>
+            <Menu.Item onClick={this.onMenuClick} key="0" icon={<HomeFilled />} />
+
+            {/* </Menu.Item> */}
+            <Menu.Item onClick={this.onMenuClick} icon={<BookFilled />} key="1">
               <Link to="/recipes">
-                <BookFilled />
                 Receitas
               </Link>
             </Menu.Item>
-            <Menu.Item onClick={this.onMenuClick} key="2">
+            <Menu.Item onClick={this.onMenuClick} icon={<ShoppingFilled />} key="2">
               <Link to="/products">
-                <ShoppingFilled />
                 Produtos
               </Link>
             </Menu.Item>
-            <Menu.Item onClick={this.onMenuClick} key="4">
-              <SaveFilled />
+            <Menu.Item onClick={this.onMenuClick} icon={<SaveFilled />} key="4">
               Salvar
             </Menu.Item>
-            <Menu.Item onClick={this.onMenuClick} key="3">
+            <Menu.Item onClick={this.onMenuClick} icon={<FolderOpenFilled />} key="3">
               <input
                 type="file"
                 accept=".json"
@@ -136,4 +138,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);

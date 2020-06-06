@@ -1,10 +1,37 @@
-.App {
+@import "~antd/dist/antd.css";
+
+.App,
+#root {
   text-align: center;
+  height: 100%;
+}
+
+.App > * {
+  min-height: 100%;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.layout-manager {
+  padding: 0 24px;
+  min-height: 280;
+  text-align: left;
+}
+
+@media only screen and (max-width: 768px) {
+  .layout-parent {
+    padding: 0px 0px !important;
+  }
+  .ant-layout {
+    margin-top: 0px !important;
+  }
+
+  .action-name {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

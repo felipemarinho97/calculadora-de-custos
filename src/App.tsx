@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC } from "react";
+import "./App.css";
+import Home from "./components/home/Home";
+import { BrowserRouter as Router } from "react-router-dom";
+import { createStore, CombinedState, Store } from "redux";
+import { persistor } from "./reducers/persistor.reducer";
+import { Provider } from "react-redux";
+import { IProductsReduxState } from "./types/products.types";
+import { IRecipesReduxState } from "./types/recipes.types";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export type IAppState = CombinedState<{
+  products: IProductsReduxState;
+  recipes: IRecipesReduxState;
+}>;
+
+export const store: Store<IAppState> = createStore(persistor);
+
+const App: FC = () => (
+  <Router>
+    <Provider store={store}>
+      <div className="App">
+        <Home />
+      </div>
+    </Provider>
+  </Router>
+);
 
 export default App;

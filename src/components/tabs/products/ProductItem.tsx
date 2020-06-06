@@ -1,6 +1,6 @@
 import React from "react";
 import { Product } from "../../../types/products.types";
-import { List, Descriptions } from "antd";
+import { List, Descriptions, Popconfirm } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import EditProductModal from "./EditProductModal";
 
@@ -16,7 +16,7 @@ interface IProductItemState {
 class ProductItem extends React.Component<
   IProductItemProps,
   IProductItemState
-> {
+  > {
   constructor(props: IProductItemProps) {
     super(props);
 
@@ -53,13 +53,14 @@ class ProductItem extends React.Component<
                 onEditItemClose={this.onEditItemClose}
               />
             </a>,
-            <a
-              onClick={() => deleteProduct(product.id)}
-              key="list-action-delete"
-            >
-              <DeleteOutlined />
-              <span className="action-name"> Apagar</span>
-            </a>,
+            <Popconfirm onConfirm={() => deleteProduct(product.id)} title="Tem certeza?" okText="Sim" cancelText="Não">
+              <a
+                key="list-action-delete"
+              >
+                <DeleteOutlined />
+                <span className="action-name"> Apagar</span>
+              </a>
+            </Popconfirm>,
           ]}
         >
           <List.Item.Meta

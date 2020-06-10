@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import "./App.css";
+import "./App.less";
 import Home from "./components/home/Home";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createStore, CombinedState, Store } from "redux";

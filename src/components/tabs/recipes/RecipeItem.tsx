@@ -1,6 +1,6 @@
 import React from "react";
 import { Recipe } from "../../../types/recipes.types";
-import { List, Descriptions } from "antd";
+import { List, Descriptions, Popconfirm } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Product } from "../../../types/products.types";
 import { Link } from "react-router-dom";
@@ -49,10 +49,14 @@ class RecipeItem extends React.Component<IRecipeItemProps> {
               <EditOutlined />
               <span className="action-name"> Editar</span>
             </Link>,
-            <a onClick={() => deleteRecipe(recipe.id)} key="list-action-delete">
-              <DeleteOutlined />
-              <span className="action-name"> Apagar</span>
-            </a>,
+            <Popconfirm onConfirm={() => deleteRecipe(recipe.id)} title="Tem certeza?" okText="Sim" cancelText="Não">
+              <a
+                key="list-action-delete"
+              >
+                <DeleteOutlined />
+                <span className="action-name"> Apagar</span>
+              </a>
+            </Popconfirm>
           ]}
         >
           <List.Item.Meta

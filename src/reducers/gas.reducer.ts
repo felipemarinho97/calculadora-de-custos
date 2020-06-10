@@ -17,7 +17,6 @@ export function gasReducer(
   switch (action.type) {
     case UPDATE_GAS:
       return {
-        ...state,
         gas: action.payload.gas,
         gasPrice: action.payload.gasPrice,
       };

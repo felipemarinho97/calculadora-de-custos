@@ -11,6 +11,12 @@ import { IPersistorState } from "../../../reducers/persistor.reducer";
 type Props = IStateToProps & IDispatchToProps;
 
 class GasCard extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+
+    this.onFinish = this.onFinish.bind(this);
+  }
+
   private onFinish(store: Store) {
     const { updateGas } = this.props;
 

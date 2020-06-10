@@ -90,6 +90,12 @@ class Home extends React.Component<RouteComponentProps> {
     }
   }
 
+  public componentDidMount(): void {
+    window.onbeforeunload = function () {
+      return "";
+    }.bind(this);
+  }
+
   public render(): JSX.Element {
     return (
       <Layout>
@@ -101,8 +107,6 @@ class Home extends React.Component<RouteComponentProps> {
               key="0"
               icon={<HomeFilled />}
             />
-
-            {/* </Menu.Item> */}
             <Menu.Item onClick={this.onMenuClick} icon={<BookFilled />} key="1">
               <Link to="/recipes">Receitas</Link>
             </Menu.Item>

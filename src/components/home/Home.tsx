@@ -10,6 +10,7 @@ import { store } from "../../App";
 import { saveAs } from "file-saver";
 import { loadState } from "../../actions/persistor.action";
 import { BookFilled, ShoppingFilled, SaveFilled } from "@ant-design/icons";
+import StartManager from "../tabs/start/StartManager";
 
 const { Header, Content, Footer } = Layout;
 
@@ -119,12 +120,7 @@ class Home extends React.Component {
               <ProductsManager />
             </Route>
             <Route path="/">
-              <br />
-              <br />
-              Clique em "Produtos" ou "Receitas".
-              <br />
-              Você também pode carregar ou salvar um arquivo de um projeto
-              anterior.
+              <StartManager />
             </Route>
           </Switch>
         </Content>

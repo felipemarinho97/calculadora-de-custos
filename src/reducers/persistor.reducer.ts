@@ -1,6 +1,6 @@
-import { ProductsAction, initialProductsState } from "./products.reducer";
-import { RecipesAction, initialRecipesState } from "./recipes.reducer";
-import { Reducer } from "redux";
+import { initialGasState } from "./gas.reducer";
+import { initialProductsState } from "./products.reducer";
+import { initialRecipesState } from "./recipes.reducer";
 import { LOAD_STATE, LoadState } from "../actions/persistor.action";
 import { IAppState } from "../App";
 import rootReducer from "./index.reducer";
@@ -17,6 +17,7 @@ export interface IPersistorState {
 export const initialIndexState: IAppState = {
   products: initialProductsState,
   recipes: initialRecipesState,
+  gas: initialGasState,
 };
 
 const initialState: IPersistorState = {

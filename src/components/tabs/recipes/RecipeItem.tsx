@@ -158,26 +158,30 @@ class RecipeItem extends React.Component<Props> {
         <span>{recipe.preparationTime} minutos de forno</span>
         <span style={{ marginLeft: "auto", marginTop: -22 }}>
           {"R$ "}
-          {(
-            (recipe.preparationTime / 60) *
-            gas.gas *
-            (gas.gasPrice / 13)
-          ).toFixed(2)}
+          {this.getGasCost(recipe, gas).toFixed(2)}
         </span>
         <br />
       </>
     );
   }
 
+  private getGasCost(recipe: Recipe, gas: Gas) {
+    return (recipe.preparationTime / 60) * gas.gas * (gas.gasPrice / 13);
+  }
+
   private getRecipeTotalCost(recipe: Recipe) {
-    return recipe.items
-      .map(
-        (item) =>
-          item.amount *
-          item.volume *
-          this.getProductProportionalPrice(item.productId)
-      )
-      .reduce((acumulador, valorAtual) => acumulador + valorAtual);
+    const { gas } = this.props;
+    return (
+      recipe.items
+        .map(
+          (item) =>
+            item.amount *
+            item.volume *
+            this.getProductProportionalPrice(item.productId)
+        )
+        .reduce((acumulador, valorAtual) => acumulador + valorAtual) +
+      this.getGasCost(recipe, gas)
+    );
   }
 }
 
